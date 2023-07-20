@@ -1,11 +1,11 @@
 # Краткая инструкция по установке ReportPortal
 1. Создать проект в **IDEA** на базе **Gradle**
-1. **build.gradle** должен выглядеть как
+2. **build.gradle** должен выглядеть как
 
 ```
 plugins {
     id 'java'
-    id "io.freefair.lombok" version "5.3.0"
+    id "io.freefair.lombok" version "6.1.0"
     id 'io.qameta.allure' version '2.10.0'
 }
 
@@ -20,14 +20,11 @@ repositories {
     mavenLocal()
     mavenCentral()
     jcenter()
-    maven { url "http://dl.bintray.com/epam/reportportal" }
-
 }
-
 
 allure {
     autoconfigure = true
-    version = '2.20.1'
+    version = '2.21'
     useJUnit5 {
         version = '2.20.1'
     }
@@ -37,17 +34,17 @@ sourceCompatibility = 1.8
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.6.1'
     testImplementation 'com.github.javafaker:javafaker:1.0.2'
-    testImplementation 'com.codeborne:selenide:5.16.2'
+    testImplementation 'com.codeborne:selenide:5.24.0'
     testRuntimeOnly 'org.slf4j:slf4j-simple:1.7.30'
     implementation 'com.epam.reportportal:agent-java-junit5:5.0.0'
     implementation 'com.epam.reportportal:logger-java-logback:5.0.2'
     implementation 'ch.qos.logback:logback-classic:1.2.3'
     implementation 'com.epam.reportportal:logger-java-log4j:5.0.2'
-    compileOnly 'log4j:log4j:1.2.17'
     implementation 'org.apache.logging.log4j:log4j-api:2.13.3'
     implementation 'org.apache.logging.log4j:log4j-core:2.13.3'
     testImplementation 'io.qameta.allure:allure-selenide:2.20.1'
 }
+
 test {
     testLogging.showStandardStreams = true
     useJUnitPlatform()
