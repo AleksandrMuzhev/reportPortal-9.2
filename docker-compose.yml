@@ -51,7 +51,7 @@ services:
       # ports:
       # - "9200:9200"
     healthcheck:
-      test: ["CMD", "curl","-s" ,"-f", "http://elastic:elastic1q2w3e@localhost:9200/_cat/health"]
+      test: [ "CMD", "curl","-s" ,"-f", "http://elastic:elastic1q2w3e@localhost:9200/_cat/health" ]
     restart: always
 
   ## An analyzer instance for main functionality, don't forget to use the same storage settings (either MinIO, or filesystem) for analyzer_train
@@ -140,7 +140,7 @@ services:
     volumes:
       ## For unix host
 #      - ./data/postgres:/var/lib/postgresql/data
-      # For windows host
+      ## For windows host
            - postgres:/var/lib/postgresql/data
     ## If you need to access the DB locally. Could be a security risk to expose DB.
     # ports:
@@ -165,7 +165,7 @@ services:
     #  -c effective_cache_size=12GB
     #  -c maintenance_work_mem=1GB
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -d $$POSTGRES_DB -U $$POSTGRES_USER"]
+      test: [ "CMD-SHELL", "pg_isready -d $$POSTGRES_DB -U $$POSTGRES_USER" ]
       interval: 10s
       timeout: 120s
       retries: 10
@@ -180,7 +180,7 @@ services:
       RABBITMQ_DEFAULT_USER: "rabbitmq"
       RABBITMQ_DEFAULT_PASS: "rabbitmq"
     healthcheck:
-      test: ["CMD", "rabbitmqctl", "status"]
+      test: [ "CMD", "rabbitmqctl", "status" ]
       retries: 5
     restart: always
 
@@ -326,15 +326,15 @@ services:
     #  - '9000:9000'
     volumes:
       ## For unix host
-      - ./data/storage:/data
+      #      - ./data/storage:/data
       ## For windows host
-    #       - minio:/data
+      - ./data/storage:/data
     environment:
       MINIO_ACCESS_KEY: minio
       MINIO_SECRET_KEY: minio123
     command: server /data
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      test: [ "CMD", "curl", "-f", "http://localhost:9000/minio/health/live" ]
       interval: 30s
       timeout: 20s
       retries: 3
@@ -342,5 +342,5 @@ services:
 
 ## Docker volume for Windows host
 volumes:
-  postgres:
+   postgres:
 #   minio:
